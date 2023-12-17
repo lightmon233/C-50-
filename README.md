@@ -112,6 +112,73 @@ int main() {
 }
 ```
 
+10、补全函数fun, 其功能是：计算并输出3到n之间所有素数的平方根之而和。
+
+```cpp
+#include <stdio.h>
+#include <math.h>
+
+double fun(int n) {
+    int i, j;
+    double s = 0.0;
+    for (int i = 3; i <= n; i ++) {
+        for (int j = 2; j <= sqrt(i); j ++) {
+            if (i % j == 0) {
+                break;
+            }
+        }
+        if (j > sqrt(i)) {
+            s += sqrt(i);
+        }
+    }
+    return s;
+}
+
+int main() {
+    printf("%lf\n", fun(5));
+    return 0;
+}
+```
+
+11、不全函数myStrcmp, 实现和c语言库函数strcmp的功能。
+
+```cpp
+int myStrcmp(const char *str1, const char *str2) {
+    // 放置str1或者str2为空指针
+    assert(str1 && str2);
+    while (*str1 == *str2) {
+        if (*str1 == '\0') {
+            return 0;
+        }
+        str1 ++;
+        str2 ++;
+    }
+    if (*str1 > *str2) return 1;
+    else return -1;
+}
+```
+
+12、完成addPoints函数，使其能够正确地将两个Point相加。
+
+```cpp
+#include <stdio.h>
+
+typedef struct {
+    int x;
+    int y;
+} Point;
+
+Point addPoints(Point p1, Point p2);
+
+int main() {
+    Point p1 = {2, 3};
+    Point p2 = {4, 5};
+    Point result = addPpoints(p1, p2);
+    printf("Result: (%d, %d)\n", result.x, result.y);
+    return 0;
+}
+```
+
 ### 二、填空题
 
 1、写出以下程序运行的输出结果。
@@ -352,7 +419,112 @@ int main() {
 }
 ```
 
-15
+17、以下程序运行时，输出结果的第一行是________, 第二行是__________。
+
+```cpp
+#include <stdio.h>
+
+void change(int x, int m) {
+    char ch[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}, b[80];
+    int i = 0, r;
+    while (x) {
+        r = x % m; x /= m; b[i ++] = ch[r];
+    }
+    for (--i; i >= 0; i --) printf("%c", b[i]);
+}
+
+int main() {
+    int a, b;
+    change(10, 2);
+    printf("\n");
+    change(10, 8);
+    return 0;
+}
+```
+
+1010
+
+12
+
+18、以下程序的输出结果是__________
+
+```cpp
+void swap1(int c[]) {
+    int t;
+    t = *c; *c = *(c + 1); *(c + 1) = t;
+}
+
+void swap2(int a, int b) {
+    int t;
+    t = a; a = b; b = t;
+}
+
+int main() {
+    int a[2] = {1, 3}, b[2] = {1, 3};
+    swap1(a);
+    swap2(b[0], b[1]);
+    printf("%2d%2d%2d%2d\n", a[0], a[1], b[0], b[1]);
+    return 0;
+}
+```
+
+3 1 1 3
+
+19、以下程序中函数long fun(char *str)的功能是：自左至右取出非空字符串str中的所有数字字符，将这些数字字符组成一个不超过8位的十进制整数并输出。
+
+例如，字符串str为"efg32gh76.jbejing08t5y4u2", 程序输出：32760854
+
+```cpp
+#include <stdio.h>
+
+long fun(char *str) {
+    int i = 0; long k = 0;
+    char *p = str;
+    while (*p != '\0' && __________) {
+        if (*p >= '0' && *p <= '9') {
+            k = __________ + *p - '0';
+            ++i;
+        }
+        ___________;
+    }
+    return k;
+}
+
+int main() {
+    char x[] = "efg32gh76.jbejing08t5y4u2";
+    printf("%ld\n", fun(x));
+    return 0;
+}
+```
+
+20、请写出以下程序的输出结果
+
+```cpp
+#include <stdio.h>
+
+#define ADD(a, b) a + b
+
+int main() {
+    int result = ADD(2, 3) * ADD(4, 5);
+    printf("%d\n", result);
+    return 0;
+}
+```
+
+21、以下程序运行时输出的是___________
+
+```cpp
+#include <stdio.h>
+
+int f(int n) {
+    if (n > 1) return f(n - 2) + n;
+    else return n;
+}
+
+void main() {
+    printf("%d\n", f(8));
+}
+```
 
 ### 三、程序设计题
 
@@ -363,6 +535,69 @@ int main() {
 1. 定义结构体类型表达日期信息，使用结构体变量来存储输入的日期。
 2. 利用switch语句，根据月份以及是否为闰年计算出天数，存在int型变量days中。
 3. 用printf函数输出结果
+
+```cpp
+#include <stdio.h>
+
+struct DATE {
+    int year;
+    int month;
+    int day;
+};
+
+int main() {
+    struct DATE date;
+    int days;
+    printf("input year-month-day");
+    scanf("%d-%d-%d", &date.year, &date.month, &date.day);
+    switch (date.month) {
+        case 1: days = date.day; break;
+        case 2: days = date.day + 32; break;
+        case 3: days = date.day + 59; break;
+        case 4: days = date.day + 90; break;
+        case 5: days = date.day + 120; break;
+        case 6: days = date.day + 151; break;
+        case 7: days = date.day + 181; break;
+        case 8: days = date.day + 212; break;
+        case 9: days = date.day + 243; break;
+        case 10: days = date.day + 273; break;
+        case 11: days = date.day + 304; break;
+        case 12: days = date.day + 334; break;
+    }
+    if ((date.year % 4 == 0 && date.year & 100 != 0 || date.year % 400 == 0) && date.month >= 3)
+        days += 1;
+    printf("%d-%d-%d is the %dth day in %d.\n", date.year, date.month, date.day, days, date.year);
+    return 0;
+}
+```
+
+2、实现一个单链表，链表初始为空，支持三种操作：
+
+1. 向链表头插入一个数；
+2. 删除第 $k$ 个插入的数后面的数；
+3. 在第 $k$ 个插入的数后插入一个数。
+
+
+
+现在要对该链表进行 $M$ 次操作，进行完所有操作后，从头到尾输出整个链表。
+
+**注意**:题目中第 $k$ 个插入的数并不是指当前链表的第 $k$ 个数。例如操作过程中一共插入了 $n$ 个数，则按照插入的时间顺序，这 $n$ 个数依次为：第 $1$ 个插入的数，第 $2$ 个插入的数，…第 $n$ 个插入的数。
+
+输入格式:
+
+第一行包含整数 $M$，表示操作次数。
+
+接下来 $M$ 行，每行包含一个操作命令，操作命令可能为以下几种：
+
+1. `H x`，表示向链表头插入一个数 $x$。
+2. `D k`，表示删除第 $k$ 个插入的数后面的数（当 $k$ 为 $0$ 时，表示删除头结点）。
+3. `I k x`，表示在第 $k$ 个插入的数后面插入一个数 $x$（此操作中 $k$ 均大于 $0$）。
+
+
+
+输出格式:
+
+共一行，将整个链表从头到尾输出。
 
 ### 四、选择题
 
@@ -455,3 +690,72 @@ C. 调用可以出现在表达式中
 
 D. 调用可以作为一个函数的形参
 
+9、已知有声明"int a[3][3] = {0}, *p1 = a[1], (*p2)[3] = a;", 以下表达式中与"a[1][1] = 1"不等价的表达式是（B）
+
+A. *(p1 + 1) = 1
+
+B. p1[1][1] = 1
+
+C. *(*(p2 + 1) + 1) = 1
+
+D. p2[1][1] = 1
+
+10、以下语句或语句组中，能正确进行字符串赋值的是（D）
+
+A. char *sp; *sp = "right!";
+
+B. char s[10]; s = "right!";
+
+C. char s[10]; *s = "right!";
+
+D. char *sp = "right!";
+
+11、在C语言源程序中，不能用于表示整型常数的数制是（D）
+
+A. 十六进制
+
+B. 八进制
+
+C. 十进制
+
+D. 二进制
+
+12、C语言规定，在一个源程序中main函数的位置（D）
+
+A. 必须在开头
+
+B. 必须在最后
+
+C. 必须在预处理命令的后面
+
+D. 可以在其他函数之前或者之后
+
+13、一个用C语言编写的源程序中，（A）是必不可少的。
+
+A. 取名为main的函数定义 
+
+B. #include <stdio.h>
+
+C. 变量声明
+
+D. 注释
+
+14、以下叙述中正确的是（）
+
+A. 在编译时可以发现注释中的拼写错误
+
+B. C语言程序的每一行只能写一条语句
+
+C. 构成C程序的最小单位是语句
+
+D. C语言程序可以由一个或多个函数组成
+
+15、以下选项中，属于C语言关键字的是（）
+
+A. printf
+
+B. include
+
+C. fun 
+
+D
